@@ -8,6 +8,7 @@ package lk.ijse.gde.springmvcassi1;
 */
 
 
+import lk.ijse.gde.springmvcassi1.config.WebAppConfig;
 import lk.ijse.gde.springmvcassi1.config.WebRootConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -16,14 +17,11 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{WebRootConfig.class};
     }
-
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebAppConF};
+        return new Class[]{WebAppConfig.class};
     }
 
     @Override
-    protected String[] getServletMappings() {
-        return new String[0];
-    }
+    protected String[] getServletMappings() {return new String[]{"/"};}
 }
