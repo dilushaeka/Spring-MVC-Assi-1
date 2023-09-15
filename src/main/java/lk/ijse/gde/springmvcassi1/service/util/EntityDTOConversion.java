@@ -18,6 +18,6 @@ public class EntityDTOConversion {
     private final ModelMapper modelMapper;
     public EntityDTOConversion(ModelMapper modelMapper) {this.modelMapper = modelMapper;}
 
-    public TechLead getTLEntity(TechLeadDTO techLeadDTO){return modelMapper.map(TechLeadDTO,TechLead.class);}
-    public TechLeadDTO getTLDTO(TechLead techLead){return modelMapper.map(techLead,TechLeadDTO.class)}
+    public TechLead getTLEntity(TechLeadDTO techLeadDTO){return modelMapper.map(techLeadDTO,TechLead.class);}
+    public TechLeadDTO getTLDTO(TechLead techLead){return modelMapper.map(techLead,TechLeadDTO.class);}
 }

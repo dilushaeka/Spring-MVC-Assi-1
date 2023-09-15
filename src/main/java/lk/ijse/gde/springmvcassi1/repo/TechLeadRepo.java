@@ -7,8 +7,10 @@ package lk.ijse.gde.springmvcassi1.repo;
     Time   : 9:43 PM 
 */
 
+
 import org.springframework.stereotype.Repository;
 
 @Repository
+
 public class TechLeadRepo {
 }
