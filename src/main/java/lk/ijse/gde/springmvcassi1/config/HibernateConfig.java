@@ -9,6 +9,7 @@ package lk.ijse.gde.springmvcassi1.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
@@ -20,6 +21,10 @@ import java.util.Map;
 @PropertySource("classpath:application.properties")
 
 public class HibernateConfig {
+
+    public final Environment env;
+
+    public HibernateConfig(Environment env) {this.env = env;}
 
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource){
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
@@ -33,7 +38,11 @@ public class HibernateConfig {
     }
 
     private Map<String,String> hibernateproperties() {
-        HashMap<Object, Object> hibernateProperties = new HashMap<>();
-        hibernateProperties.put("")
+        Map<String, String> hibernateProperties = new HashMap<>();
+        hibernateProperties.put("spring.jpa.hibernate.hbm2ddl.auto",env.getProperty("spring.jpa.hibernate.ddl-auto"));
+        hibernateProperties.put("spring.jpa.hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
+        hibernateProperties.put("spring.jpa.hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect"));
+        hibernateProperties.put("spring.jpa.hibernate.format_sql", env.getProperty("spring.jpa.properties.hibernate.format_sql"));
+        return hibernateProperties;
     }
 }
