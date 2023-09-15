@@ -61,6 +61,8 @@ public class HibernateConfig {
         transactionManager.setEntityManagerFactory(emf.getObject());
         return transactionManager;
     }
+
+    // Load hibernate properties
     private Map<String,String> hibernateproperties() {
         Map<String, String> hibernateProperties = new HashMap<>();
         hibernateProperties.put("spring.jpa.hibernate.hbm2ddl.auto",env.getProperty("spring.jpa.hibernate.ddl-auto"));
