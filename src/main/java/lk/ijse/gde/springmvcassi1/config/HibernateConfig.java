@@ -7,9 +7,11 @@ package lk.ijse.gde.springmvcassi1.config;
     Time   : 2:30 AM 
 */
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
@@ -26,6 +28,8 @@ public class HibernateConfig {
 
     public HibernateConfig(Environment env) {this.env = env;}
 
+    //Factory create
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource){
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 
@@ -35,6 +39,16 @@ public class HibernateConfig {
         emf.setJpaVendorAdapter(vendorAdapter);
         emf.setJpaPropertyMap(hibernateproperties());
         return emf;
+    }
+
+    //create data source
+    public DataSource dataSource(){
+        DriverManagerDataSource dmd = new DriverManagerDataSource();
+        dmd.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
+        dmd.setUrl(env.getProperty("spring.datasource.url"));
+        dmd.setUsername(env.getProperty("spring.datasource.username"));
+        dmd.setPassword(env.getProperty("spring.datasource.password"));
+        return dmd;
     }
 
     private Map<String,String> hibernateproperties() {
