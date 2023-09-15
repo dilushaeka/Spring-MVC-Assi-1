@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -42,6 +44,7 @@ public class HibernateConfig {
     }
 
     //create data source
+    @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dmd = new DriverManagerDataSource();
         dmd.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
@@ -51,6 +54,13 @@ public class HibernateConfig {
         return dmd;
     }
 
+    //Transaction
+    public PlatformTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean emf){
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf.getObject());
+        transactionManager.setEntityManagerFactory(emf.getObject());
+        return transactionManager;
+    }
     private Map<String,String> hibernateproperties() {
         Map<String, String> hibernateProperties = new HashMap<>();
         hibernateProperties.put("spring.jpa.hibernate.hbm2ddl.auto",env.getProperty("spring.jpa.hibernate.ddl-auto"));
